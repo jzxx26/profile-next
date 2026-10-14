@@ -21,6 +21,7 @@ function throttle<T extends (...args: unknown[]) => void>(
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
+  { label: "Notes", href: "#engineering-notes" },
   { label: "Publications", href: "#publications" },
   { label: "Timeline", href: "#timeline" },
   { label: "Contact", href: "#contact" },
