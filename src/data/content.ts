@@ -6,6 +6,7 @@ export interface Project {
   tags: string[];
   active: boolean;
   featured?: boolean;
+  contribution?: string;
 }
 
 export interface TimelineItem {
@@ -52,30 +53,30 @@ export interface CapabilitySignal {
 
 export const heroContent = {
   name: "Jacy",
-  title: "AI engineer shipping useful chaos.",
+  title: "Software engineer. Product builder. Professional bug negotiator.",
   description:
-    "I build ML-flavored products, break them responsibly, then ship the least cursed version.",
-  primaryCta: { label: "See projects", href: "#projects" },
-  secondaryCta: { label: "Read the lore", href: "#timeline" },
+    "I design, ship, and operate software, from backend systems to developer tools and apps people use. AI is in the toolbox, not the entire personality.",
+  primaryCta: { label: "Explore my work", href: "#projects" },
+  secondaryCta: { label: "Open profile.py", href: "#about" },
 };
 
 export const aboutContent = {
   realName: "Jason",
   age: 20,
   summary:
-    "I learn by shipping things, snapping things, and then pretending that was part of the plan.",
+    "I like owning the whole journey: building the product, shipping it, and fixing what breaks in the real world.",
   capabilityMap: [
     {
-      area: "Backend + API Systems",
-      tools: ["Python", "Django", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+      area: "Backend + infrastructure",
+      tools: ["Python", "Django", "PostgreSQL", "Redis", "Docker", "AWS"],
     },
     {
-      area: "Applied ML",
+      area: "Full-stack products",
+      tools: ["Next.js", "React", "Flutter", "TypeScript", "Supabase"],
+    },
+    {
+      area: "Applied AI + research",
       tools: ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV"],
-    },
-    {
-      area: "Product / Frontend",
-      tools: ["Next.js", "React", "Flutter", "TypeScript", "Tailwind"],
     },
   ] as CapabilitySignal[],
   hobbies: [
@@ -94,31 +95,26 @@ export const projects: Project[] = [
   {
     title: "AskLexy",
     description:
-      "Multi-agent AI learning platform with conversational tutoring and developer-focused career preparation tools.",
+      "AI-powered learning, career preparation, and hiring products. I build features and backend systems, including Jobpipe, a private pipeline that keeps job opportunities organized and up to date.",
+    contribution: "Product engineering · Backend APIs · Private job-data pipeline",
     href: "https://asklexy.me",
     status: "Work",
-    tags: ["AI", "Web"],
+    tags: ["Backend", "AI", "Product"],
     active: true,
+    featured: true,
   },
   {
     title: "Gamilife",
     description:
-      "Gamified productivity platform for focus sessions, habit tracking, and progression-based goals.",
+      "A gamified productivity app built around focused work, habits, and progress. As co-founder and CTO, I work across product decisions, engineering, and deployments.",
+    contribution: "Co-founder & CTO · Full-stack product · Deployment ownership",
     href: "https://gamilife.com",
     status: "Live",
-    tags: ["App", "Web"],
+    tags: ["Product", "Web", "App"],
     active: true,
+    featured: true,
   },
-  {
-    title: "Jobpipe",
-    description:
-      "Private job-listings data pipeline focused on collecting, organizing, and keeping career opportunities up to date. Implementation details are not public.",
-    // No public URL: keep the internal repository and implementation private.
-    status: "Work",
-    tags: ["Backend", "Data"],
-    active: true,
-  },
-  {
+   {
     title: "Settle",
     description:
       "Browser-based 3D aim trainer with a fixed-step simulation, weapon mechanics, configurable drills, and post-session feedback.",
@@ -162,7 +158,6 @@ export const projects: Project[] = [
     status: "Research",
     tags: ["AI", "Research"],
     active: false,
-    featured: true,
   },
   {
     title: "solarVert",
@@ -292,7 +287,7 @@ export const nowContent = {
       name: "AskLexy",
       href: "https://asklexy.me",
       description:
-        "AI-powered learning and career prep platform. Working on the developer experience and onboarding flows.",
+        "Building AI-powered learning and hiring products, backend features, and supporting job-data tooling.",
       status: "Active",
     },
     {
