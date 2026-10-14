@@ -9,6 +9,19 @@ export interface Project {
   contribution?: string;
 }
 
+export interface EngineeringNote {
+  id: string;
+  project: string;
+  title: string;
+  discipline: string;
+  preview: string;
+  problem: string;
+  decision: string;
+  result: string;
+  lesson: string;
+  href: string;
+}
+
 export interface TimelineItem {
   date: string;
   detail: string;
@@ -117,7 +130,7 @@ export const projects: Project[] = [
    {
     title: "Settle",
     description:
-      "Browser-based 3D aim trainer with a fixed-step simulation, weapon mechanics, configurable drills, and post-session feedback.",
+      "Valorant-specific browser trainer for practicing movement and gunplay, and a personal playground for testing AI-assisted development.",
     href: "https://settle.jzxx.dev",
     status: "Live",
     tags: ["Web", "Simulation"],
@@ -126,7 +139,7 @@ export const projects: Project[] = [
   {
     title: "TL;DR this PR",
     description:
-      "Chrome extension that summarizes GitHub pull requests, surfaces risk and key changes, and explains AI-assisted review findings.",
+      "Chrome extension for OSS maintainers: PR summaries, risk signals, and rule-guided AI analysis to flag changes worth a closer review.",
     href: "https://chromewebstore.google.com/detail/tldr-this-pr/mpgekicmpbnkcpjpjadjhiblcbpdlknl",
     status: "Live",
     tags: ["DevTools", "AI"],
@@ -176,6 +189,57 @@ export const projects: Project[] = [
     status: "Clinical",
     tags: ["AI", "Research", "Clinical"],
     active: false,
+  },
+];
+
+export const engineeringNotes: EngineeringNote[] = [
+  {
+    id: "asklexy",
+    project: "AskLexy / Job discovery",
+    title: "When caching wasn't enough",
+    discipline: "Backend · Data lifecycle · Performance",
+    preview:
+      "Keeping job listings fresh without sacrificing application history made storage and filter responsiveness a balancing act.",
+    problem:
+      "Outdated listings needed to disappear from recommendations, but users' application histories had to remain available for tracking and analysis. Keeping too much listing data around also carried a performance and storage cost.",
+    decision:
+      "Application records were maintained separately from listing data. Caching helped with repeated work, but changing filters still felt slow. I revisited the processing path and focused on computing and retrieving only the data relevant to each request.",
+    result:
+      "Filtering became more responsive in use while the recommendation experience stayed useful. I haven't published a controlled performance benchmark.",
+    lesson: "The best cache is sometimes the computation you no longer have to do.",
+    href: "https://asklexy.me",
+  },
+  {
+    id: "settle",
+    project: "Settle / Valorant practice",
+    title: "Building a trainer and testing AI at the same time",
+    discipline: "Game mechanics · Vanilla JavaScript · AI tooling",
+    preview:
+      "I wanted practice grounded in Valorant's movement and gunplay, and a safe place to push AI coding tools beyond throwaway demos.",
+    problem:
+      "Consistent movement, weapon behavior, and timing matter for meaningful practice. Getting them to work together in a browser with vanilla JavaScript isn't just a matter of drawing targets.",
+    decision:
+      "I used AI to research game mechanics and build the initial training environment, then iterated on requirements, prompts, and generated implementations. Settle doubles as a low-stakes way to evaluate different coding models before relying on them for other work.",
+    result:
+      "I use the trainer alongside regular practice. Over three weeks I climbed from Iron to Bronze 2; that doesn't establish causation, but it was encouraging personal feedback.",
+    lesson: "A useful personal tool can also be a laboratory for learning how to work with AI.",
+    href: "https://settle.jzxx.dev",
+  },
+  {
+    id: "tldr",
+    project: "TL;DR this PR / OSS tooling",
+    title: "Why reviewing AI-ish code needs more than AI",
+    discipline: "Developer tools · Review heuristics · LLM analysis",
+    preview:
+      "Open-source maintainers need a fast first pass on incoming PRs, without mistaking an AI guess for an authorship verdict.",
+    problem:
+      "Classifying whether a PR was AI-written proved unreliable. More importantly, how the code was produced wasn't a reliable proxy for whether a contribution was useful or safe to merge.",
+    decision:
+      "I combined explicit review heuristics and diff signals with AI-assisted summaries and explanations. The extension flags questionable patterns with reasons so maintainers can decide what deserves closer inspection.",
+    result:
+      "The browser extension provides summaries, risk cues, and review findings directly on GitHub. Its output is triage assistance, not proof of authorship or a substitute for code review.",
+    lesson: "Show evidence and uncertainty. Don't let a classifier pretend to know what it can't.",
+    href: "https://chromewebstore.google.com/detail/tldr-this-pr/mpgekicmpbnkcpjpjadjhiblcbpdlknl",
   },
 ];
 
