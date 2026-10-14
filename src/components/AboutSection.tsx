@@ -57,6 +57,7 @@ export function AboutSection() {
   const helpMethods = [
     "profile.contact()",
     "profile.currently_shipping()",
+    "profile.shipped()",
     "profile.stack()",
     "profile.hobbies()",
     "profile.unpopular_opinions()",
@@ -65,7 +66,13 @@ export function AboutSection() {
     "profile.dont_hire_me_if()",
   ];
 
-  const currentlyShipping = ["AskLexy", "LifeXP", "half-finished side quest"];
+  const currentlyShipping = ["AskLexy", "Gamilife", "half-finished side quest"];
+  const shipped = [
+    "AskLexy: AI products, hiring tools, backend services",
+    "Gamilife: gamified productivity app",
+    "Settle: browser-based aim training simulation",
+    "TL;DR this PR: GitHub review browser extension",
+  ];
   const stackItems = Array.from(
     new Set(aboutContent.capabilityMap.flatMap((signal) => signal.tools)),
   );
@@ -79,14 +86,14 @@ export function AboutSection() {
   ];
   const currentlyObsessingOver = ["F1 telemetry", "DDIA", "agent workflows"];
   const hireMeIf = [
-    "your backend is on fire and needs an adult",
-    "you want ML work that ends in production, not a research repo",
-    "you're okay with 2am Slack messages",
+    "you need someone who can build and own a product end to end",
+    "your problems cross backend, product, and infrastructure",
+    "you want AI where it helps, not where it just looks impressive",
   ];
   const dontHireMeIf = [
-    "you need someone to wait for the ticket",
-    "your stack is 100% Java Enterprise Edition",
-    "you want estimates in story points",
+    "the demo matters more than whether the system works",
+    "you need someone to wait around for the next ticket",
+    "you think shipping means never touching the code again",
   ];
 
   const codeLines = [
@@ -96,7 +103,7 @@ export function AboutSection() {
     "class Jacy(Engineer):",
     "    def __init__(self):",
     `        self.name = "${aboutContent.realName}"`,
-    `        self.focus = "ML systems + product execution"`,
+    `        self.focus = "software engineering + product ownership"`,
     `        self.summary = "${aboutContent.summary}"`,
     "",
     "    def help(self):",
@@ -106,6 +113,9 @@ export function AboutSection() {
     "",
     "    def currently_shipping(self):",
     `        return ${toInlinePythonList(currentlyShipping)}`,
+    "",
+    "    def shipped(self):",
+    `        return ${toInlinePythonList(shipped)}`,
     "",
     "    def stack(self):",
     `        return ${toInlinePythonList(stackItems)}`,
@@ -156,6 +166,9 @@ export function AboutSection() {
           break;
         case "currently_shipping":
           output = toPythonList(currentlyShipping);
+          break;
+        case "shipped":
+          output = toPythonList(shipped);
           break;
         case "stack":
           output = toPythonList(stackItems);
@@ -210,10 +223,10 @@ export function AboutSection() {
             About
           </p>
           <h2 className="text-3xl font-bold sm:text-5xl">
-            Gremlin energy, production output
+            From the first commit to the production fix
           </h2>
           <p className="text-white/70">
-            Fewer buzzwords, more receipts, occasional chaos.
+            I like building the whole thing: useful interfaces, solid backends, and the infrastructure in between.
           </p>
         </div>
         <div className="space-y-6">
@@ -300,15 +313,15 @@ export function AboutSection() {
               </div>
 
               <p className="mt-2 text-[11px] text-white/40">
-                Try: profile.currently_shipping(), profile.stack(),
-                profile.unpopular_opinions(), profile.secret()
+                Try: profile.shipped(), profile.currently_shipping(),
+                profile.stack(), profile.secret()
               </p>
             </div>
           </SpotlightCard>
           <SpotlightCard>
             <h3 className="text-xl font-semibold">Capability map</h3>
             <p className="mt-2 text-white/70">
-              I rank by scars earned, not logos memorized.
+              The tools I actually reach for when turning ideas into working products.
             </p>
             <div className="mt-4 space-y-3">
               {aboutContent.capabilityMap.map((signal) => (
