@@ -1,6 +1,7 @@
 import { AboutSection } from "@/components/AboutSection";
 import { BlogSection } from "@/components/BlogSection";
 import { ContactSection } from "@/components/ContactSection";
+import { EngineeringNotesSection } from "@/components/EngineeringNotesSection";
 import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import Lanyard from "@/components/Lanyard";
@@ -19,6 +20,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
+      <EngineeringNotesSection />
       <PublicationsSection />
       <BlogSection />
       <TimelineSection />
