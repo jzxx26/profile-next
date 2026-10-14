@@ -1,7 +1,7 @@
 export interface Project {
   title: string;
   description: string;
-  href: string;
+  href?: string;
   status: "Work" | "Live" | "Research" | "Clinical";
   tags: string[];
   active: boolean;
@@ -101,13 +101,49 @@ export const projects: Project[] = [
     active: true,
   },
   {
-    title: "LifeXP",
+    title: "Gamilife",
     description:
-      "Gamified life operating system turning habits, learning, and social activity into RPG-style progression.",
-    href: "https://lifexp.live",
+      "Gamified productivity platform for focus sessions, habit tracking, and progression-based goals.",
+    href: "https://gamilife.com",
     status: "Live",
     tags: ["App", "Web"],
     active: true,
+  },
+  {
+    title: "Jobpipe",
+    description:
+      "Private job-listings data pipeline focused on collecting, organizing, and keeping career opportunities up to date. Implementation details are not public.",
+    // No public URL: keep the internal repository and implementation private.
+    status: "Work",
+    tags: ["Backend", "Data"],
+    active: true,
+  },
+  {
+    title: "Settle",
+    description:
+      "Browser-based 3D aim trainer with a fixed-step simulation, weapon mechanics, configurable drills, and post-session feedback.",
+    href: "https://settle.jzxx.dev",
+    status: "Live",
+    tags: ["Web", "Simulation"],
+    active: true,
+  },
+  {
+    title: "TL;DR this PR",
+    description:
+      "Chrome extension that summarizes GitHub pull requests, surfaces risk and key changes, and explains AI-assisted review findings.",
+    href: "https://chromewebstore.google.com/detail/tldr-this-pr/mpgekicmpbnkcpjpjadjhiblcbpdlknl",
+    status: "Live",
+    tags: ["DevTools", "AI"],
+    active: false,
+  },
+  {
+    title: "Apex F1 Live",
+    description:
+      "Formula 1 telemetry dashboard for live race data, historical sessions, driver comparisons, and interactive performance charts.",
+    href: "https://github.com/jzxx26/f1-data",
+    status: "Work",
+    tags: ["Web", "Data"],
+    active: false,
   },
   {
     title: "Bodhimaram",
@@ -197,7 +233,7 @@ export const timeline: TimelineItem[] = [
   {
     date: "April 2025",
     detail:
-      "Started building lifeXP, a gamified way to track life experiences.",
+      "Started building LifeXP (now Gamilife), a gamified way to track life experiences.",
   },
   {
     date: "May 2025",
@@ -250,7 +286,7 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const nowContent = {
-  lastUpdated: "March 2026",
+  lastUpdated: "October 2026",
   building: [
     {
       name: "AskLexy",
@@ -260,10 +296,10 @@ export const nowContent = {
       status: "Active",
     },
     {
-      name: "LifeXP",
-      href: "https://lifexp.live",
+      name: "Gamilife",
+      href: "https://gamilife.com",
       description:
-        "Gamified life operating system. Currently iterating on progression mechanics and data visualization.",
+        "Gamified productivity platform. Iterating on progression mechanics and habit tracking.",
       status: "Active",
     },
   ] as NowProject[],
