@@ -73,10 +73,10 @@ export function ProjectsSection() {
             Projects
           </p>
           <h2 className="text-3xl font-bold sm:text-5xl">
-            Things I've built and shipped
+            Things I&apos;ve built and shipped
           </h2>
           <p className="mx-auto max-w-2xl text-white/70">
-            Real products first, experiments close behind. Here's the engineering
+            Real products first, experiments close behind. Here&apos;s the engineering
             behind the things I spend my time on.
           </p>
         </div>
