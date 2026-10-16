@@ -1,3 +1,4 @@
+import DotGrid from "@/components/DotGrid";
 import { FadeIn } from "@/components/FadeIn";
 import { ExternalLink } from "lucide-react";
 
@@ -65,8 +66,16 @@ export async function BlogSection() {
   const posts = await getPosts();
   if (posts.length === 0) {
     return (
-      <section id="writing" className="relative bg-black px-6 py-24 text-white">
-        <div className="mx-auto max-w-4xl space-y-4 text-center">
+      <section id="writing" className="relative overflow-hidden bg-black px-6 py-24 text-white">
+        <DotGrid
+          className="pointer-events-none absolute inset-0 opacity-[0.28]"
+          gap={38}
+          dotSize={6}
+          baseColor="#1a1a1a"
+          activeColor="#f5f5f5"
+          proximity={160}
+        />
+        <div className="relative z-10 mx-auto max-w-4xl space-y-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-white/50">
             Writing
           </p>
@@ -89,7 +98,15 @@ export async function BlogSection() {
   }
 
   return (
-    <section id="writing" className="relative bg-black px-6 py-24 text-white">
+    <section id="writing" className="relative overflow-hidden bg-black px-6 py-24 text-white">
+      <DotGrid
+        className="pointer-events-none absolute inset-0 opacity-[0.28]"
+        gap={38}
+        dotSize={6}
+        baseColor="#1a1a1a"
+        activeColor="#f5f5f5"
+        proximity={160}
+      />
       <FadeIn className="relative z-10 mx-auto max-w-4xl space-y-12">
         <div className="space-y-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-white/50">
