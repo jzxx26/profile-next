@@ -14,7 +14,11 @@ const tagContainer = {
 
 const tagItem = {
   hidden: { opacity: 0, y: 6 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" as const } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: "easeOut" as const },
+  },
 };
 
 const STATUS_COLORS: Record<string, string> = {
@@ -24,20 +28,22 @@ const STATUS_COLORS: Record<string, string> = {
   Clinical: "#f97316",
 };
 
+const featuredProjects = projects.filter((project) => project.featured && project.href);
+const otherProjects = projects.filter((project) => !project.featured);
 const ALL_TAGS = [
   "All",
-  ...Array.from(new Set(projects.flatMap((p) => p.tags))),
+  ...Array.from(new Set(otherProjects.flatMap((project) => project.tags))),
 ];
 
 export function ProjectsSection() {
   const [activeTag, setActiveTag] = useState("All");
 
-  const filtered =
+  const filteredProjects =
     activeTag === "All"
-      ? projects
-      : projects.filter((p) => p.tags.includes(activeTag));
+      ? otherProjects
+      : otherProjects.filter((project) => project.tags.includes(activeTag));
 
-  const bentoItems: BentoCardProps[] = filtered.map((project) => ({
+  const bentoItems: BentoCardProps[] = filteredProjects.map((project) => ({
     title: project.title,
     description: project.description,
     label: project.status,
@@ -60,91 +66,127 @@ export function ProjectsSection() {
         activeColor="#f5f5f5"
         proximity={150}
       />
+
       <FadeIn className="relative z-10 mx-auto max-w-6xl space-y-12 xl:max-w-7xl">
         <div className="space-y-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-white/50">
             Projects
           </p>
           <h2 className="text-3xl font-bold sm:text-5xl">
-            Experiments + shipped work
+            Things I&apos;ve built and shipped
           </h2>
-          <p className="text-white/70">
-            Product builds, research detours, and shipping practice reps.
+          <p className="mx-auto max-w-2xl text-white/70">
+            Real products first, experiments close behind. Here&apos;s the engineering
+            behind the things I spend my time on.
           </p>
         </div>
 
-        {/* Featured project */}
-        {(() => {
-          const featured = projects.find((p) => p.featured);
-          if (!featured) return null;
-          return (
+        {/* Give the main products room to explain scope without burying them in the gallery. */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {featuredProjects.map((project, index) => (
             <a
-              href={featured.href}
+              key={project.title}
+              href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-6 transition-all duration-300 hover:border-white/25 hover:bg-white/8 sm:p-8"
+              className="group flex min-h-85 flex-col justify-between gap-8 rounded-3xl border border-white/15 bg-white/4 p-6 transition-colors duration-300 hover:border-white/35 hover:bg-white/7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:p-8"
             >
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs uppercase tracking-[0.25em] text-white/40">
-                    Featured Project
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/45">
+                    {String(index + 1).padStart(2, "0")} / Featured build
                   </span>
                   <span
-                    className="rounded-full border px-2 py-0.5 text-xs"
+                    className="rounded-full border px-2.5 py-1 text-[11px]"
                     style={{
-                      borderColor: `${STATUS_COLORS[featured.status]}40`,
-                      color: STATUS_COLORS[featured.status],
+                      borderColor: `${STATUS_COLORS[project.status]}40`,
+                      color: STATUS_COLORS[project.status],
                     }}
                   >
-                    {featured.status}
+                    {project.status}
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold transition group-hover:text-white/90 sm:text-3xl">
-                  {featured.title}
+                <h3 className="mt-8 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  {project.title}
                 </h3>
-                <p className="max-w-2xl text-white/60">{featured.description}</p>
-                <span className="text-xs text-white/40 underline underline-offset-2 transition group-hover:text-white/60">
-                  View project →
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/65 sm:text-base">
+                  {project.description}
+                </p>
+              </div>
+
+              <div>
+                {project.contribution ? (
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">
+                      What I work on
+                    </p>
+                    <p className="mt-2 text-sm text-white/80">{project.contribution}</p>
+                  </div>
+                ) : null}
+                <span className="mt-6 inline-flex items-center text-sm font-medium text-white/75 transition group-hover:text-white">
+                  Explore project <span aria-hidden="true" className="ml-2 transition-transform group-hover:translate-x-1">↗</span>
                 </span>
               </div>
             </a>
-          );
-        })()}
-
-        {/* Filter tags */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-2"
-          variants={tagContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
-        >
-          {ALL_TAGS.map((tag) => (
-            <motion.button
-              key={tag}
-              variants={tagItem}
-              onClick={() => setActiveTag(tag)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition-all duration-200 ${
-                activeTag === tag
-                  ? "border-white bg-white text-black"
-                  : "border-white/15 text-white/60 hover:border-white/30 hover:text-white"
-              }`}
-            >
-              {tag}
-            </motion.button>
           ))}
-        </motion.div>
+        </div>
 
-        <div className="flex justify-center">
-          <MagicBento
-            items={bentoItems}
-            glowColor="255, 255, 255"
-            spotlightRadius={220}
-            particleCount={10}
-            enableTilt
-            enableMagnetism
-            textAutoHide
-          />
+        <div className="space-y-6">
+          <div className="space-y-2 text-center">
+            <p className="text-xs uppercase tracking-[0.24em] text-white/45">
+              Beyond the main builds
+            </p>
+            <h3 className="text-xl font-semibold sm:text-2xl">
+              Tools, experiments, and research
+            </h3>
+            <p className="text-sm text-white/55">
+              Side projects still count. Especially the ones that solve real problems.
+            </p>
+          </div>
+
+          <motion.div
+            className="flex flex-wrap justify-center gap-2"
+            variants={tagContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            aria-label="Filter other projects by category"
+          >
+            {ALL_TAGS.map((tag) => (
+              <motion.button
+                key={tag}
+                type="button"
+                variants={tagItem}
+                onClick={() => setActiveTag(tag)}
+                aria-pressed={activeTag === tag}
+                className={`rounded-full border px-4 py-1.5 text-sm transition-all duration-200 ${
+                  activeTag === tag
+                    ? "border-white bg-white text-black"
+                    : "border-white/15 text-white/60 hover:border-white/30 hover:text-white"
+                }`}
+              >
+                {tag}
+              </motion.button>
+            ))}
+          </motion.div>
+
+          <div className="flex justify-center">
+            {bentoItems.length > 0 ? (
+              <MagicBento
+                items={bentoItems}
+                glowColor="255, 255, 255"
+                spotlightRadius={220}
+                particleCount={10}
+                enableTilt
+                enableMagnetism
+                textAutoHide
+              />
+            ) : (
+              <p className="py-12 text-sm text-white/55">
+                No projects in this category yet.
+              </p>
+            )}
+          </div>
         </div>
       </FadeIn>
     </section>

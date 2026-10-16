@@ -5,8 +5,11 @@ import { FadeIn } from "@/components/FadeIn";
 import { timeline } from "@/data/content";
 import { motion } from "motion/react";
 
+// Timeline entries are authored oldest-first in content.ts.
+// Reverse a copy so new milestones appear at the top without mutating the source.
+const newestFirstTimeline = [...timeline].reverse();
+
 export function TimelineSection() {
-  const lastIndex = timeline.length - 1;
 
   return (
     <section
@@ -31,8 +34,8 @@ export function TimelineSection() {
           </h2>
         </div>
         <div className="mt-16 space-y-12 border-l border-white/10 pl-8">
-          {timeline.map((item, index) => {
-            const isActualLast = index === lastIndex;
+          {newestFirstTimeline.map((item, index) => {
+            const isLatest = index === 0;
 
             return (
               <motion.div
@@ -44,7 +47,7 @@ export function TimelineSection() {
                 transition={{ duration: 0.4, ease: "easeOut" as const }}
               >
                 {/* Timeline dot */}
-                {isActualLast ? (
+                {isLatest ? (
                   <motion.span
                     className="absolute -left-10 top-2 flex h-4 w-4 items-center justify-center"
                     initial={{ scale: 0.4, opacity: 0 }}

@@ -1,11 +1,25 @@
 export interface Project {
   title: string;
   description: string;
-  href: string;
+  href?: string;
   status: "Work" | "Live" | "Research" | "Clinical";
   tags: string[];
   active: boolean;
   featured?: boolean;
+  contribution?: string;
+}
+
+export interface EngineeringNote {
+  id: string;
+  project: string;
+  title: string;
+  discipline: string;
+  preview: string;
+  problem: string;
+  decision: string;
+  result: string;
+  lesson: string;
+  href: string;
 }
 
 export interface TimelineItem {
@@ -52,30 +66,30 @@ export interface CapabilitySignal {
 
 export const heroContent = {
   name: "Jacy",
-  title: "AI engineer shipping useful chaos.",
+  title: "Software engineer. Product builder. Professional bug negotiator.",
   description:
-    "I build ML-flavored products, break them responsibly, then ship the least cursed version.",
-  primaryCta: { label: "See projects", href: "#projects" },
-  secondaryCta: { label: "Read the lore", href: "#timeline" },
+    "I design, ship, and operate software, from backend systems to developer tools and apps people use. AI is in the toolbox, not the entire personality.",
+  primaryCta: { label: "Explore my work", href: "#projects" },
+  secondaryCta: { label: "Open profile.py", href: "#about" },
 };
 
 export const aboutContent = {
   realName: "Jason",
   age: 20,
   summary:
-    "I learn by shipping things, snapping things, and then pretending that was part of the plan.",
+    "I like owning the whole journey: building the product, shipping it, and fixing what breaks in the real world.",
   capabilityMap: [
     {
-      area: "Backend + API Systems",
-      tools: ["Python", "Django", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+      area: "Backend + infrastructure",
+      tools: ["Python", "Django", "PostgreSQL", "Redis", "Docker", "AWS"],
     },
     {
-      area: "Applied ML",
+      area: "Full-stack products",
+      tools: ["Next.js", "React", "Flutter", "TypeScript", "Supabase"],
+    },
+    {
+      area: "Applied AI + research",
       tools: ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV"],
-    },
-    {
-      area: "Product / Frontend",
-      tools: ["Next.js", "React", "Flutter", "TypeScript", "Tailwind"],
     },
   ] as CapabilitySignal[],
   hobbies: [
@@ -94,20 +108,51 @@ export const projects: Project[] = [
   {
     title: "AskLexy",
     description:
-      "Multi-agent AI learning platform with conversational tutoring and developer-focused career preparation tools.",
+      "AI-powered learning, career preparation, and hiring products. I build features and backend systems, including Jobpipe, a private pipeline that keeps job opportunities organized and up to date.",
+    contribution: "Product engineering · Backend APIs · Private job-data pipeline",
     href: "https://asklexy.me",
     status: "Work",
-    tags: ["AI", "Web"],
+    tags: ["Backend", "AI", "Product"],
+    active: true,
+    featured: true,
+  },
+  {
+    title: "Gamilife",
+    description:
+      "A gamified productivity app built around focused work, habits, and progress. As co-founder and CTO, I work across product decisions, engineering, and deployments.",
+    contribution: "Co-founder & CTO · Full-stack product · Deployment ownership",
+    href: "https://gamilife.com",
+    status: "Live",
+    tags: ["Product", "Web", "App"],
+    active: true,
+    featured: true,
+  },
+   {
+    title: "Settle",
+    description:
+      "Valorant-specific browser trainer for practicing movement and gunplay, and a personal playground for testing AI-assisted development.",
+    href: "https://settle.jzxx.dev",
+    status: "Live",
+    tags: ["Web", "Simulation"],
     active: true,
   },
   {
-    title: "LifeXP",
+    title: "TL;DR this PR",
     description:
-      "Gamified life operating system turning habits, learning, and social activity into RPG-style progression.",
-    href: "https://lifexp.live",
+      "Chrome extension for OSS maintainers: PR summaries, risk signals, and rule-guided AI analysis to flag changes worth a closer review.",
+    href: "https://chromewebstore.google.com/detail/tldr-this-pr/mpgekicmpbnkcpjpjadjhiblcbpdlknl",
     status: "Live",
-    tags: ["App", "Web"],
-    active: true,
+    tags: ["DevTools", "AI"],
+    active: false,
+  },
+  {
+    title: "Apex F1 Live",
+    description:
+      "Formula 1 telemetry dashboard for live race data, historical sessions, driver comparisons, and interactive performance charts.",
+    href: "https://github.com/jzxx26/f1-data",
+    status: "Work",
+    tags: ["Web", "Data"],
+    active: false,
   },
   {
     title: "Bodhimaram",
@@ -126,7 +171,6 @@ export const projects: Project[] = [
     status: "Research",
     tags: ["AI", "Research"],
     active: false,
-    featured: true,
   },
   {
     title: "solarVert",
@@ -145,6 +189,57 @@ export const projects: Project[] = [
     status: "Clinical",
     tags: ["AI", "Research", "Clinical"],
     active: false,
+  },
+];
+
+export const engineeringNotes: EngineeringNote[] = [
+  {
+    id: "asklexy",
+    project: "AskLexy / Job discovery",
+    title: "When caching wasn't enough",
+    discipline: "Backend · Data lifecycle · Performance",
+    preview:
+      "Keeping job listings fresh without sacrificing application history made storage and filter responsiveness a balancing act.",
+    problem:
+      "Outdated listings needed to disappear from recommendations, but users' application histories had to remain available for tracking and analysis. Keeping too much listing data around also carried a performance and storage cost.",
+    decision:
+      "Application records were maintained separately from listing data. Caching helped with repeated work, but changing filters still felt slow. I revisited the processing path and focused on computing and retrieving only the data relevant to each request.",
+    result:
+      "Filtering became more responsive in use while the recommendation experience stayed useful. I haven't published a controlled performance benchmark.",
+    lesson: "The best cache is sometimes the computation you no longer have to do.",
+    href: "https://asklexy.me",
+  },
+  {
+    id: "settle",
+    project: "Settle / Valorant practice",
+    title: "Building a trainer and testing AI at the same time",
+    discipline: "Game mechanics · Vanilla JavaScript · AI tooling",
+    preview:
+      "I wanted practice grounded in Valorant's movement and gunplay, and a safe place to push AI coding tools beyond throwaway demos.",
+    problem:
+      "Consistent movement, weapon behavior, and timing matter for meaningful practice. Getting them to work together in a browser with vanilla JavaScript isn't just a matter of drawing targets.",
+    decision:
+      "I used AI to research game mechanics and build the initial training environment, then iterated on requirements, prompts, and generated implementations. Settle doubles as a low-stakes way to evaluate different coding models before relying on them for other work.",
+    result:
+      "I use the trainer alongside regular practice. Over three weeks I climbed from Iron to Bronze 2; that doesn't establish causation, but it was encouraging personal feedback.",
+    lesson: "A useful personal tool can also be a laboratory for learning how to work with AI.",
+    href: "https://settle.jzxx.dev",
+  },
+  {
+    id: "tldr",
+    project: "TL;DR this PR / OSS tooling",
+    title: "Why reviewing AI-ish code needs more than AI",
+    discipline: "Developer tools · Review heuristics · LLM analysis",
+    preview:
+      "Open-source maintainers need a fast first pass on incoming PRs, without mistaking an AI guess for an authorship verdict.",
+    problem:
+      "Classifying whether a PR was AI-written proved unreliable. More importantly, how the code was produced wasn't a reliable proxy for whether a contribution was useful or safe to merge.",
+    decision:
+      "I combined explicit review heuristics and diff signals with AI-assisted summaries and explanations. The extension flags questionable patterns with reasons so maintainers can decide what deserves closer inspection.",
+    result:
+      "The browser extension provides summaries, risk cues, and review findings directly on GitHub. Its output is triage assistance, not proof of authorship or a substitute for code review.",
+    lesson: "Show evidence and uncertainty. Don't let a classifier pretend to know what it can't.",
+    href: "https://chromewebstore.google.com/detail/tldr-this-pr/mpgekicmpbnkcpjpjadjhiblcbpdlknl",
   },
 ];
 
@@ -197,7 +292,7 @@ export const timeline: TimelineItem[] = [
   {
     date: "April 2025",
     detail:
-      "Started building lifeXP, a gamified way to track life experiences.",
+      "Started building LifeXP (now Gamilife), a gamified way to track life experiences.",
   },
   {
     date: "May 2025",
@@ -250,20 +345,20 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const nowContent = {
-  lastUpdated: "March 2026",
+  lastUpdated: "October 2026",
   building: [
     {
       name: "AskLexy",
       href: "https://asklexy.me",
       description:
-        "AI-powered learning and career prep platform. Working on the developer experience and onboarding flows.",
+        "Building AI-powered learning and hiring products, backend features, and supporting job-data tooling.",
       status: "Active",
     },
     {
-      name: "LifeXP",
-      href: "https://lifexp.live",
+      name: "Gamilife",
+      href: "https://gamilife.com",
       description:
-        "Gamified life operating system. Currently iterating on progression mechanics and data visualization.",
+        "Gamified productivity platform. Iterating on progression mechanics and habit tracking.",
       status: "Active",
     },
   ] as NowProject[],
