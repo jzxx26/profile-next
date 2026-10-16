@@ -114,7 +114,6 @@ export function EngineeringNotesSection() {
               <button
                 type="button"
                 onClick={closeDialog}
-                autoFocus
                 aria-label="Close engineering story"
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
